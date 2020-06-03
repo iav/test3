@@ -66,8 +66,8 @@ jobs:
           
 #           sudo systemctl start docker
 
-      - name: Log into registry
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u $DOCKER_REGISTRY_USERNAME --password-stdin
+#      - name: Log into registry
+#        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u $DOCKER_REGISTRY_USERNAME --password-stdin
 
       -
         name: Set up Docker Buildx
