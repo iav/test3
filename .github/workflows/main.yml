@@ -104,8 +104,8 @@ jobs:
             --load \
             --file Dockerfile .
              
-          echo docker buildx build \
-           --platform linux/amd64 \
+          docker buildx build \
+            --platform linux/amd64 \
             --tag $IMAGE_ID:$VERSION-amd64 \
             --build-arg RUST_TARGET=x86_64-unknown-linux-musl \
             --load \
