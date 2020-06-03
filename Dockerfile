@@ -4,6 +4,10 @@ FROM ubuntu:19.10
 #FROM debian:10-slim
 
 
+ARG RUST_TARGET=x86_64-unknown-linux-musl
+#ARG RUST_TARGET=armv7-unknown-linux-musleabihf
+#ARG RUST_TARGET=aarch64-unknown-linux-musl
+
 ARG TARGETPLATFORM
 ARG TARGETARCH
 ARG TOOLCHAIN=stable
@@ -27,9 +31,9 @@ RUN   apt-get update && apt-get upgrade -y && \
 
 WORKDIR /tmp
 
-RUN wget "https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz"
-RUN wget "https://ftp.postgresql.org/pub/source/v$POSTGRESQL_VERSION/postgresql-$POSTGRESQL_VERSION.tar.gz"
-
+RUN curl -fLO "https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz"
+RUN curl -fLO "https://ftp.postgresql.org/pub/source/v$POSTGRESQL_VERSION/postgresql-$POSTGRESQL_VERSION.tar.gz"
+ENV PATH=/home/rust/.cargo/bin:/root/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 RUN curl https://sh.rustup.rs -sSf | \
     sh -s -- -y --default-toolchain $TOOLCHAIN && \
 	  rustup target add $RUST_TARGET
