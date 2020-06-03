@@ -1,6 +1,6 @@
-#FROM ubuntu:18.04
+FROM ubuntu:18.04
 #FROM ubuntu:20.04
-FROM ubuntu:19.10
+#FROM ubuntu:19.10
 #FROM debian:10-slim
 
 
