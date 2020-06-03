@@ -112,16 +112,14 @@ jobs:
             --tag $IMAGE_ID:$VERSION-amd64 \
             --build-arg RUST_TARGET=x86_64-unknown-linux-musl \
             --load \
-            --progress plain \
-            Dockerfile .
+            --progress plain .
              
           docker buildx build \
             --platform linux/arm/v7 \
             --tag $IMAGE_ID:$VERSION-armv7 \
             --build-arg RUST_TARGET=armv7-unknown-linux-musleabihf \
             --progress plain \
-            --load \ 
-            --file Dockerfile .
+            --load  .
          
-         pwd
+          pwd
          
