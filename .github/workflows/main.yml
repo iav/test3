@@ -113,7 +113,9 @@ jobs:
             --build-arg RUST_TARGET=x86_64-unknown-linux-musl \
             --load \
             --progress plain .
-             
+      -
+        name: Buildx ARMv7
+        run: |
           docker buildx build \
             --platform linux/arm/v7 \
             --tag $IMAGE_ID:$VERSION-armv7 \
