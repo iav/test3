@@ -1,7 +1,8 @@
 #ARG BASE_IMAGE=ubuntu:18.04
-ARG BASE_IMAGE=ubuntu:20.04
+#ARG BASE_IMAGE=ubuntu:20.04
 #ARG BASE_IMAGE=ubuntu:19.10
 #ARG BASE_IMAGE=debian:10-slim
+ARG BASE_IMAGE=debian:9-slim
 
 FROM $BASE_IMAGE
 
@@ -22,13 +23,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN   apt-get update && apt-get upgrade -y && \
       apt-get install -y \
-        build-essential \
-	      ca-certificates \
+	ca-certificates \
         cmake \
         curl \
         file mc \
-        sudo \
-	      wget
+        sudo
 
 WORKDIR /tmp
 
