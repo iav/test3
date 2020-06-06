@@ -15,7 +15,7 @@ ARG TARGETARCH
 ARG TOOLCHAIN=stable
 ARG OPENSSL_VERSION=1.1.1f
 ARG POSTGRESQL_VERSION=11.8
-ARG $RUSTUSERID=100001
+ARG RUSTUSERID=100001
 
 RUN echo "Hello, my CPU architecture is $(uname -m)"
 RUN echo TARGETPLATFORM: $TARGETPLATFORM TARGETARCH: $TARGETARCH
@@ -35,7 +35,7 @@ WORKDIR /tmp
 RUN curl -fLO "https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz"
 
 # test for sudo
-RUN useradd rust --user-group --create-home --shell /bin/bash --groups sudo -u $RUSTUSERID
+RUN useradd rust --user-group --create-home --shell /bin/bash --groups sudo ${RUSTUSERID:+"-u $RUSTUSERID"}
 # Allow sudo without a password.
 RUN echo "rust   ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers.d/rust
 RUN mkdir /app
