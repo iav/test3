@@ -103,10 +103,7 @@ jobs:
           echo "::set-output name=VERSION::$VERSION"
 
 
-          docker build \
-            --tag $IMAGE_ID:$VERSION-amd64 \
-            --build-arg RUST_TARGET=x86_64-unknown-linux-musl
-            .
+          docker build --build-arg RUST_TARGET=x86_64-unknown-linux-musl .
            
           docker buildx build \
             --platform linux/arm64 \
