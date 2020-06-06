@@ -103,10 +103,17 @@ jobs:
           echo "::set-output name=VERSION::$VERSION"
 
 
-          docker build --build-arg RUST_TARGET=x86_64-unknown-linux-musl --tag $IMAGE_ID:$VERSION-arm64 .
-           
+          docker build --build-arg RUST_TARGET=x86_64-unknown-linux-musl .
+          
           docker buildx build \
             --platform linux/amd64 \
+            --tag $IMAGE_ID:$VERSION-amd64 \
+            --build-arg RUST_TARGET=x86_64-unknown-linux-musl \
+            --load \
+            --progress plain .
+                        
+          docker buildx build \
+            --platform linux/arm64 \
             --tag $IMAGE_ID:$VERSION-arm64 \
             --build-arg RUST_TARGET=aarch64-unknown-linux-musl \
             --progress plain \
@@ -115,13 +122,6 @@ jobs:
           pwd
           ls -la
              
-          docker buildx build \
-            --platform linux/amd64 \
-            --tag $IMAGE_ID:$VERSION-amd64 \
-            --build-arg RUST_TARGET=x86_64-unknown-linux-musl \
-            --load \
-            --progress plain .
-
           docker buildx build \
             --platform linux/arm/v7 \
             --tag $IMAGE_ID:$VERSION-armv7 \
