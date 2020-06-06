@@ -25,14 +25,14 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN   apt-get update && apt-get upgrade -y && \
       apt-get install -y \
 	ca-certificates \
-        cmake \
+        #cmake \
         curl \
-        file mc \
+        #file mc \
         sudo
 
 WORKDIR /tmp
 
-RUN curl -fLO "https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz"
+#RUN curl -fLO "https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz"
 
 # test for sudo
 RUN useradd rust --user-group --create-home --shell /bin/bash --groups sudo ${RUSTUSERID:+"-u $RUSTUSERID"}
