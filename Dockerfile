@@ -32,6 +32,15 @@ RUN   apt-get update && apt-get upgrade -y && \
 WORKDIR /tmp
 
 RUN curl -fLO "https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz"
+
+# test for sudo
+RUN useradd rust --user-group --create-home --shell /bin/bash --groups sudo -u $RUSTUSERID
+# Allow sudo without a password.
+RUN echo "rust   ALL=(ALL:ALL) NOPASSWD:ALL" >> /etc/sudoers.d/rust
+RUN mkdir /app
+USER rust
+RUN sudo chown -R rust:rust /app
+
 RUN curl -fLO "https://ftp.postgresql.org/pub/source/v$POSTGRESQL_VERSION/postgresql-$POSTGRESQL_VERSION.tar.gz"
 ENV PATH=/home/rust/.cargo/bin:/root/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 RUN curl https://sh.rustup.rs -sSf | \
