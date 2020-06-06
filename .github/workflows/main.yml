@@ -99,7 +99,8 @@ jobs:
           echo "::set-output name=IMAGE_ID::$IMAGE_ID"
           echo "::set-output name=VERSION::$VERSION"
 
-
+          docker build --build-arg RUST_TARGET=aarch64-unknown-linux-musl \
+            --build-arg BASE_IMAGE=debian:buster-slim
           docker build --build-arg RUST_TARGET=x86_64-unknown-linux-musl .
           
           docker buildx build \
