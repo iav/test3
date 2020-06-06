@@ -101,17 +101,15 @@ jobs:
           
           docker buildx stop
           docker volume prune -f
+          echo -------------before qemuuser-statis:register
+          cat /proc/sys/fs/binfmt_misc/qemu-aarch64
           docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes
+          echo -------------after
+          cat /proc/sys/fs/binfmt_misc/qemu-aarch64
           
           #docker build --build-arg RUST_TARGET=aarch64-unknown-linux-musl --build-arg BASE_IMAGE=arm32v7/debian:buster-slim .
           #docker build --build-arg RUST_TARGET=x86_64-unknown-linux-musl .
-          
-          docker buildx build \
-            --platform linux/amd64 \
-            --tag $IMAGE_ID:$VERSION-amd64 \
-            --build-arg RUST_TARGET=x86_64-unknown-linux-musl \
-            --load \
-            --progress plain .
+
                         
           docker buildx build \
             --platform linux/arm64 \
@@ -120,6 +118,13 @@ jobs:
             --progress plain \
             --load .
           
+          docker buildx build \
+            --platform linux/amd64 \
+            --tag $IMAGE_ID:$VERSION-amd64 \
+            --build-arg RUST_TARGET=x86_64-unknown-linux-musl \
+            --load \
+            --progress plain .
+                       
           pwd
           ls -la
              
