@@ -108,7 +108,7 @@ jobs:
           docker volume prune -f
           echo -------------before qemuuser-statis:register
           cat /proc/sys/fs/binfmt_misc/qemu-aarch64
-          docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes
+          sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes
           echo -------------after
           cat /proc/sys/fs/binfmt_misc/qemu-aarch64
           
