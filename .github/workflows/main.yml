@@ -76,7 +76,7 @@ jobs:
         run: echo ${{ steps.buildx.outputs.platforms }}
 
       -
-        name: Run Buildx
+        name: Prepare container names
         run: |
           IMAGE_ID=$IMAGE_NAME
           # Change all uppercase to lowercase
@@ -105,14 +105,21 @@ jobs:
           
           #docker build --build-arg RUST_TARGET=aarch64-unknown-linux-musl --build-arg BASE_IMAGE=arm32v7/debian:buster-slim .
           #docker build --build-arg RUST_TARGET=x86_64-unknown-linux-musl .
-             
+
+      -
+        name: Buildx arm64
+        run:
           docker buildx build \
             --platform linux/arm64 \
             --tag $IMAGE_ID:$VERSION-arm64 \
             --build-arg RUST_TARGET=aarch64-unknown-linux-musl \
             --progress plain \
             --load .
-          
+
+
+      -
+        name: Buildx amd64
+        run:
           docker buildx build \
             --platform linux/amd64 \
             --tag $IMAGE_ID:$VERSION-amd64 \
