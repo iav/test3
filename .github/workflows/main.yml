@@ -29,42 +29,42 @@ jobs:
         # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         name: Checkout
         uses: actions/checkout@v2
-      -
-        # Enable experimental features in Docker client
-        name: Enable experimental docker client
-        run: |
-          mkdir $HOME/.docker
-          echo -e "{\n  \"experimental\": \"enabled\"\n}" | tee $HOME/.docker/config.json
-          docker version
+#       -
+#         # Enable experimental features in Docker client
+#         name: Enable experimental docker client
+#         run: |
+#           mkdir $HOME/.docker
+#           echo -e "{\n  \"experimental\": \"enabled\"\n}" | tee $HOME/.docker/config.json
+#           docker version
 #       - name: list packages
 #         run: |
 #           ls -l /opt
 #           #dpkg-query -l
 
-      -
-        name: create small fs for docker cache
-        run: |
+#       -
+#         name: create small fs for docker cache
+#         run: |
           
-          sudo systemctl stop docker
-          sudo rm -rf /var/lib/docker/*
-          #apt list --installed
-          #sudo dd if=/dev/zero of=/swapfile1 bs=1M count=24K
-          sudo dd if=/dev/zero of=/swapfile1 bs=1M count=14K
-          sudo chmod 600 /swapfile1
+#           sudo systemctl stop docker
+#           sudo rm -rf /var/lib/docker/*
+#           #apt list --installed
+#           #sudo dd if=/dev/zero of=/swapfile1 bs=1M count=24K
+#           sudo dd if=/dev/zero of=/swapfile1 bs=1M count=14K
+#           sudo chmod 600 /swapfile1
           
-          sudo mkfs.btrfs /swapfile1
-          #sudo mkswap /swapfile1
-          #sudo swapon -a /swapfile1
+#           sudo mkfs.btrfs /swapfile1
+#           #sudo mkswap /swapfile1
+#           #sudo swapon -a /swapfile1
           
-          #sudo swapon --show
-          sudo free -h
+#           #sudo swapon --show
+#           sudo free -h
 
-          #sudo mount -t tmpfs -o size=10G,suid tmpfs /var/lib/docker
-          sudo mount -o suid /swapfile1 /var/lib/docker
-          mount
-          df -h
+#           #sudo mount -t tmpfs -o size=10G,suid tmpfs /var/lib/docker
+#           sudo mount -o suid /swapfile1 /var/lib/docker
+#           mount
+#           df -h
           
-          sudo systemctl start docker
+#           sudo systemctl start docker
 
 #      - name: Log into registry
 #        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u $DOCKER_REGISTRY_USERNAME --password-stdin
@@ -103,7 +103,7 @@ jobs:
           docker volume prune -f
           echo -------------before qemuuser-statis:register
           cat /proc/sys/fs/binfmt_misc/qemu-aarch64
-          docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes -p yes
+          docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes
           echo -------------after
           cat /proc/sys/fs/binfmt_misc/qemu-aarch64
           
