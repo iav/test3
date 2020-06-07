@@ -80,7 +80,7 @@ jobs:
         uses: crazy-max/ghaction-docker-buildx@v2
         with:
           buildx-version: latest
-          skip-cache: true
+          skip-cache: false
           qemu-version: latest
       -
         name: Available platforms
@@ -104,8 +104,8 @@ jobs:
           echo "::set-output name=IMAGE_ID::$IMAGE_ID"
           echo "::set-output name=VERSION::$VERSION"
           
-          docker buildx stop
-          docker volume prune -f
+          #docker buildx stop
+          #docker volume prune -f
           echo -------------/proc/sys/fs/binfmt_misc/qemu-aarch64 before qemuuser-statis:register
           cat /proc/sys/fs/binfmt_misc/qemu-aarch64
           sudo docker run --rm --privileged multiarch/qemu-user-static --reset -p yes --credential yes
