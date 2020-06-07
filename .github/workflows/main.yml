@@ -110,8 +110,8 @@ jobs:
       -
         name: Buildx arm64
         env: 
-          IMAGE_ID: ${{ buildx.setvars.outputs.IMAGE_ID }}
-          VERSION: ${{ buildx.setvars.outputs.VERSION }}
+          IMAGE_ID: ${{ steps.setvars.outputs.IMAGE_ID }}
+          VERSION: ${{ steps.setvars.outputs.VERSION }}
         run: |
           docker buildx build \
             --platform linux/arm64 \
