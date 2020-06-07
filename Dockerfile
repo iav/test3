@@ -1,5 +1,5 @@
-ARG BASE_IMAGE=ubuntu:18.04
-#ARG BASE_IMAGE=ubuntu:20.04
+#ARG BASE_IMAGE=ubuntu:18.04
+ARG BASE_IMAGE=ubuntu:20.04
 #ARG BASE_IMAGE=ubuntu:19.10
 #ARG BASE_IMAGE=debian:10-slim
 #ARG BASE_IMAGE=debian:9-slim
