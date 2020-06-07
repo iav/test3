@@ -125,7 +125,7 @@ jobs:
         env: 
           IMAGE_ID: ${{ steps.setvars.outputs.IMAGE_ID }}
           VERSION: ${{ steps.setvars.outputs.VERSION }}
-        run: 
+        run: |
           docker buildx build \
             --platform linux/amd64 \
             --tag $IMAGE_ID:$VERSION-amd64 \
