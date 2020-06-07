@@ -71,7 +71,8 @@ jobs:
 
       - name: Setup qemu binfmt-support qemu-user-static
         run: |
-          apt install qemu binfmt-support qemu-user-static
+          id
+          sudo apt install qemu binfmt-support qemu-user-static
           update-binfmts --display
       -
         name: Set up Docker Buildx
