@@ -33,6 +33,8 @@ RUN   apt-get update && apt-get upgrade -y && \
 WORKDIR /tmp
 
 #RUN curl -fLO "https://www.openssl.org/source/openssl-$OPENSSL_VERSION.tar.gz"
+#https://github.com/sudo-project/sudo/issues/42
+#echo "Set disable_coredump false" >> /etc/sudo.conf
 
 # test for sudo
 RUN useradd rust --user-group --create-home --shell /bin/bash --groups sudo ${RUSTUSERID:+"-u $RUSTUSERID"}
