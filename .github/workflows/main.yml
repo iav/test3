@@ -71,8 +71,8 @@ jobs:
 
       - name: Setup qemu binfmt-support qemu-user-static
         run: |
-          id
-          sudo apt install qemu binfmt-support qemu-user-static
+          #id
+          #sudo apt install qemu binfmt-support qemu-user-static
           update-binfmts --display
       -
         name: Set up Docker Buildx
@@ -80,7 +80,7 @@ jobs:
         uses: crazy-max/ghaction-docker-buildx@v2
         with:
           buildx-version: latest
-          skip-cache: false
+          skip-cache: true
           qemu-version: latest
       -
         name: Available platforms
@@ -106,10 +106,10 @@ jobs:
           
           docker buildx stop
           docker volume prune -f
-          echo -------------before qemuuser-statis:register
+          echo -------------/proc/sys/fs/binfmt_misc/qemu-aarch64 before qemuuser-statis:register
           cat /proc/sys/fs/binfmt_misc/qemu-aarch64
-          sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset --credential yes
-          echo -------------after
+          sudo docker run --rm --privileged multiarch/qemu-user-static:register --reset -p yes --credential yes
+          echo -------------/proc/sys/fs/binfmt_misc/qemu-aarch64 after
           cat /proc/sys/fs/binfmt_misc/qemu-aarch64
           
           #docker build --build-arg RUST_TARGET=aarch64-unknown-linux-musl --build-arg BASE_IMAGE=arm32v7/debian:buster-slim .
