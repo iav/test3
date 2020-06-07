@@ -120,17 +120,25 @@ jobs:
             --progress plain \
             --load .
 
-
+      -
+        name: Buildx amd64
+        env: 
+          IMAGE_ID: ${{ steps.setvars.outputs.IMAGE_ID }}
+          VERSION: ${{ steps.setvars.outputs.VERSION }}
+        run: 
           docker buildx build \
             --platform linux/amd64 \
             --tag $IMAGE_ID:$VERSION-amd64 \
             --build-arg RUST_TARGET=x86_64-unknown-linux-musl \
             --load \
             --progress plain .
-                       
-          pwd
-          ls -la
-             
+
+      -
+        name: Buildx armv7
+        env: 
+          IMAGE_ID: ${{ steps.setvars.outputs.IMAGE_ID }}
+          VERSION: ${{ steps.setvars.outputs.VERSION }}
+        run: |             
           docker buildx build \
             --platform linux/arm/v7 \
             --tag $IMAGE_ID:$VERSION-armv7 \
