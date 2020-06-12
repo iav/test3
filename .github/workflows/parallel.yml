@@ -53,7 +53,6 @@ jobs:
         VERSION: ${{ needs.prepare_all_buildx.outputs.VERSION }} 
     steps:  
       -
-        # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
         name: Checkout
         uses: actions/checkout@v2
 
@@ -64,15 +63,9 @@ jobs:
         with:
           buildx-version: latest
           qemu-version: latest
-#      -
-#        name: Available platforms
-#        run: echo ${{ steps.buildx.outputs.platforms }}
 
       -
         name: Buildx arm64
-#        env: 
-#          IMAGE_ID: ${{ IMAGE_ID }}
-#          VERSION: ${{ VERSION }}
         run: |
           docker buildx build \
             --platform linux/arm64 \
@@ -81,11 +74,26 @@ jobs:
             --progress plain \
             --load .
 
+  buildx_amd64:
+    runs-on: ubuntu-latest
+    needs: prepare_all_buildx
+    env: 
+        IMAGE_ID: ${{ needs.prepare_all_buildx.outputs.IMAGE_ID }}
+        VERSION: ${{ needs.prepare_all_buildx.outputs.VERSION }} 
+    steps:  
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+
+      -
+        name: Set up Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v3
+        with:
+          buildx-version: latest
+          qemu-version: latest
       -
         name: Buildx amd64
-        env: 
-          IMAGE_ID: ${{ needs.prepare_all_buildx.outputs.IMAGE_ID }}
-          VERSION: ${{ needs.prepare_all_buildx.outputs.VERSION }}
         run: |
           docker buildx build \
             --platform linux/amd64 \
@@ -94,11 +102,26 @@ jobs:
             --load \
             --progress plain .
 
+  buildx_armv7:
+    runs-on: ubuntu-latest
+    needs: prepare_all_buildx
+    env: 
+        IMAGE_ID: ${{ needs.prepare_all_buildx.outputs.IMAGE_ID }}
+        VERSION: ${{ needs.prepare_all_buildx.outputs.VERSION }} 
+    steps:  
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+
+      -
+        name: Set up Docker Buildx
+        id: buildx
+        uses: crazy-max/ghaction-docker-buildx@v3
+        with:
+          buildx-version: latest
+          qemu-version: latest
       -
         name: Buildx armv7
-        env: 
-          IMAGE_ID: ${{ needs.prepare_all_buildx.outputs.IMAGE_ID }}
-          VERSION: ${{ needs.prepare_all_buildx.outputs.VERSION }}
         run: |             
           docker buildx build \
             --platform linux/arm/v7 \
