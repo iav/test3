@@ -134,7 +134,7 @@ jobs:
 
   make_manifest:
     runs-on: ubuntu-latest
-    needs: buildx_arm64, buildx_armv7, buildx_amd64
+    needs: [ buildx_arm64, buildx_armv7, buildx_amd64 ]
     env:
         IMAGE_ID: ${{ needs.prepare_all_buildx.outputs.IMAGE_ID }}
         VERSION: ${{ needs.prepare_all_buildx.outputs.VERSION }}
