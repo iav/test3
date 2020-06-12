@@ -64,9 +64,9 @@ jobs:
         with:
           buildx-version: latest
           qemu-version: latest
-      -
-        name: Available platforms
-        run: echo ${{ steps.buildx.outputs.platforms }}
+#      -
+#        name: Available platforms
+#        run: echo ${{ steps.buildx.outputs.platforms }}
 
       -
         name: Buildx arm64
