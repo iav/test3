@@ -70,9 +70,9 @@ jobs:
 
       -
         name: Buildx arm64
-        env: 
-          IMAGE_ID: ${{ IMAGE_ID }}
-          VERSION: ${{ VERSION }}
+#        env: 
+#          IMAGE_ID: ${{ IMAGE_ID }}
+#          VERSION: ${{ VERSION }}
         run: |
           docker buildx build \
             --platform linux/arm64 \
