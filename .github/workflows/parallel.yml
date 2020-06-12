@@ -18,14 +18,11 @@ env:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   prepare_all_buildx:
     runs-on: ubuntu-latest
     outputs: 
         ${{ steps.setvars.outputs.IMAGE_ID }}
         ${{ steps.setvars.outputs.VERSION }}
-        
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       -
         name: Prepare container names
@@ -46,12 +43,6 @@ jobs:
           echo "::set-output name=IMAGE_ID::$IMAGE_ID"
           echo "::set-output name=VERSION::$VERSION"
           
-          #docker buildx stop
-          #docker volume prune -f
-          
-          echo -------------/proc/sys/fs/binfmt_misc/qemu-aarch64 before qemuuser-statis:register
-          cat /proc/sys/fs/binfmt_misc/qemu-aarch64
- 
 
 
   prepare_x64_buildx:
