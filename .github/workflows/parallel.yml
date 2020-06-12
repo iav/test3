@@ -85,8 +85,8 @@ jobs:
       -
         name: Buildx amd64
         env: 
-          IMAGE_ID: ${{ steps.setvars.outputs.IMAGE_ID }}
-          VERSION: ${{ steps.setvars.outputs.VERSION }}
+          IMAGE_ID: ${{ needs.prepare_all_buildx.outputs.IMAGE_ID }}
+          VERSION: ${{ needs.prepare_all_buildx.outputs.VERSION }}
         run: |
           docker buildx build \
             --platform linux/amd64 \
@@ -98,8 +98,8 @@ jobs:
       -
         name: Buildx armv7
         env: 
-          IMAGE_ID: ${{ steps.setvars.outputs.IMAGE_ID }}
-          VERSION: ${{ steps.setvars.outputs.VERSION }}
+          IMAGE_ID: ${{ needs.prepare_all_buildx.outputs.IMAGE_ID }}
+          VERSION: ${{ needs.prepare_all_buildx.outputs.VERSION }}
         run: |             
           docker buildx build \
             --platform linux/arm/v7 \
