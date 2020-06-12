@@ -68,7 +68,7 @@ jobs:
         name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
 
-       -
+      -
         name: Buildx arm64
         env: 
           IMAGE_ID: ${{ IMAGE_ID }}
