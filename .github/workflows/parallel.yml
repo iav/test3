@@ -55,13 +55,13 @@ jobs:
           platform: [ amd64, arm64, armv7 ]
           include:
             - platform: arm64
-              BUILDXPLATFORM: linux/arm64
+              buildxplatform: linux/arm64
               RUST_TARGET: aarch64-unknown-linux-musl
-            - platform: amd4
-              BUILDXPLATFORM: linux/amd64
+            - platform: amd64
+              buildxplatform: linux/amd64
               RUST_TARGET: x86_64-unknown-linux-musl
-            - platform: arm64
-              BUILDXPLATFORM: linux/arm/v7
+            - platform: armv7
+              buildxplatform: linux/arm/v7
               RUST_TARGET: armv7-unknown-linux-musleabihf
 
     steps:
@@ -72,7 +72,6 @@ jobs:
 
       -
         name: Set up Docker Buildx
-        id: buildx
         uses: crazy-max/ghaction-docker-buildx@v3
         with:
           buildx-version: latest
@@ -82,7 +81,7 @@ jobs:
         name: Buildx ${{ matrix.platform }}
         run: |
           docker buildx build \
-            --platform ${{ matrix.BUILDXPLATFORM }} \
+            --platform ${{ matrix.buildxplatform }} \
             --tag ${{ matrix.IMAGE_ID }}:${{ matrix.VERSION }}-${{ matrix.platform }} \
             --build-arg RUST_TARGET=${{ matrix.RUST_TARGET }} \
             --progress plain \
