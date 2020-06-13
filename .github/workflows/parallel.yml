@@ -60,6 +60,7 @@ jobs:
             - platform: amd64
               buildxplatform: linux/amd64
               RUST_TARGET: x86_64-unknown-linux-musl
+              strategy.fail-fast: false
             - platform: armv7
               buildxplatform: linux/arm/v7
               RUST_TARGET: armv7-unknown-linux-musleabihf
