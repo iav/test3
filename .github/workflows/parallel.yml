@@ -82,7 +82,7 @@ jobs:
         run: |
           docker buildx build \
             --platform ${{ matrix.buildxplatform }} \
-            --tag ${{ matrix.IMAGE_ID }}:${{ matrix.VERSION }}-${{ matrix.platform }} \
+            --tag $IMAGE_ID:${{ matrix.VERSION }}-${{ matrix.platform }} \
             --build-arg RUST_TARGET=${{ matrix.RUST_TARGET }} \
             --progress plain \
             --load .
