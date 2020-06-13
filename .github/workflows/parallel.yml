@@ -52,12 +52,12 @@ jobs:
         VERSION: ${{ needs.prepare_all_buildx.outputs.VERSION }}
     strategy:
         matrix:
-            platform: [ amd64, arm64, armv7 ]
-        include:
-            - platform: amd64
-                buildxplatform: "linux/arm64"
-                TAG:            $IMAGE_ID:$VERSION-${{ platform }}
-                RUST_TARGET:    aarch64-unknown-linux-musl
+          platform: [ amd64, arm64, armv7 ]
+          include:
+            - platform: arm64
+              buildxplatform: linux/arm64
+              TAG: $IMAGE_ID:$VERSION-${{ platform }}
+              RUST_TARGET: aarch64-unknown-linux-musl
 
     steps:
 
