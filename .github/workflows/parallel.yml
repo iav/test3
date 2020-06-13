@@ -56,8 +56,13 @@ jobs:
           include:
             - platform: arm64
               BUILDXPLATFORM: linux/arm64
-              TAG: ${{ needs.prepare_all_buildx.outputs.IMAGE_ID }}:${{ needs.prepare_all_buildx.outputs.VERSION }}-${{ matrix.platform }}
               RUST_TARGET: aarch64-unknown-linux-musl
+            - platform: amd4
+              BUILDXPLATFORM: linux/amd64
+              RUST_TARGET: x86_64-unknown-linux-musl
+            - platform: arm64
+              BUILDXPLATFORM: linux/arm/v7
+              RUST_TARGET: armv7-unknown-linux-musleabihf
 
     steps:
 
