@@ -55,7 +55,7 @@ jobs:
             platform: [ amd64, arm64, armv7 ]
         include:
             - platform: amd64
-                BUILDXPLATFORM: linux/arm64
+                BUILDXPLATFORM: "linux/arm64"
                 TAG:            $IMAGE_ID:$VERSION-${{ platform }}
                 RUST_TARGET:    aarch64-unknown-linux-musl
 
