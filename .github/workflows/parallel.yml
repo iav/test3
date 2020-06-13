@@ -56,7 +56,7 @@ jobs:
           include:
             - platform: arm64
               BUILDXPLATFORM: linux/arm64
-              TAG: ${{ needs.prepare_all_buildx.outputs.IMAGE_ID }}:${{ needs.prepare_all_buildx.outputs.VERSION }}-${{ platform }}
+              TAG: ${{ needs.prepare_all_buildx.outputs.IMAGE_ID }}:${{ needs.prepare_all_buildx.outputs.VERSION }}-${{ matrix.platform }}
               RUST_TARGET: aarch64-unknown-linux-musl
 
     steps:
