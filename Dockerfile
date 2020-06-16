@@ -4,21 +4,39 @@ ARG BASE_IMAGE=ubuntu:20.04
 #ARG BASE_IMAGE=debian:10-slim
 #ARG BASE_IMAGE=debian:9-slim
 
-FROM $BASE_IMAGE
+# should be set if run without buildx (buildkit)
+ARG TARGETARCH=amd64
 
-ARG RUST_TARGET=x86_64-unknown-linux-musl
-#ARG RUST_TARGET=armv7-unknown-linux-musleabihf
-#ARG RUST_TARGET=aarch64-unknown-linux-musl
 
+FROM $BASE_IMAGE as base
+
+# Common build-time parameters set there
 ARG TARGETPLATFORM
-ARG TARGETARCH
+ARG BUILDPLATFORM
 ARG TOOLCHAIN=stable
-ARG OPENSSL_VERSION=1.1.1f
+ARG OPENSSL_VERSION=1.1.1g
 ARG POSTGRESQL_VERSION=11.8
 ARG RUSTUSERID=100001
 
+FROM base AS base-amd64
+# Platform-depended parameters set there
+ENV TARGET_CMAKE_C_FLAGS "-Wa,-mrelax-relocations=no"
+ENV RUST_TARGET=x86_64-unknown-linux-musl
+
+FROM base AS base-arm64
+ENV TARGET_CMAKE_C_FLAGS ""
+ENV RUST_TARGET=aarch64-unknown-linux-musl
+
+FROM base AS base-arm
+ENV TARGET_CMAKE_C_FLAGS ""
+ENV RUST_TARGET=armv7-unknown-linux-musleabihf
+
+
+FROM base-$TARGETARCH AS test3final
+RUN env
 RUN echo "Hello, my CPU architecture is $(uname -m)"
-RUN echo TARGETPLATFORM: $TARGETPLATFORM TARGETARCH: $TARGETARCH
+RUN echo TARGETPLATFORM: $TARGETPLATFORM TARGETARCH: $TARGETARCH BUILDPLATFORM: $BUILDPLATFORM
+
 
 ENV DEBIAN_FRONTEND=noninteractive
 
